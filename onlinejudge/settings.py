@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
-    'core',
+    # 'core',
     'oj',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -132,7 +132,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'oj_frontend', 'build', 'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:8000',
+    # 'http://127.0.0.1:8000',
     # 'http://localhost:3030',
     'http://localhost:3000',
 ]

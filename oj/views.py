@@ -4,27 +4,22 @@ from django.urls import reverse
 from django.template import loader
 from django.shortcuts import render
 from django.http import HttpResponse
-from .serializers import OjSerializer 
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+# from api import serializers
+from .serializers import OjSerializer
+# from .models import Note
+from .utils import getQuesionList, getProblemDetail,ProblemSubmit
+from .models import Question, solution,testcase
 
-from .models import Question
-from rest_framework import viewsets
+@api_view(['GET', 'POST'])
+def getProblems(request):
+    if request.method == 'GET':
+        return getQuesionList(request)    
 
-def index(request):
-    context = { }
-    return render(request, 'index.html',context)
-
-class Questionslist(viewsets.ModelViewSet):  
-    serializer_class = OjSerializer   
-    queryset = OjSerializer.objects.all()  
-def problems(request):
-    problems_list = Question.objects.all()
-    context = {'problems_list': problems_list}   
-    return render(request,'oj/problems.html',context)
-# Create your views here.
-# def problems(request):
-#     	latest_problems_list = Question.objects.all()[:5]
-# 	template = loader.get_template('onlinejudge/problems.html')
-# 	context = {
-# 		'latest_problems_list': latest_problems_list,
-# 	}
-# 	return HttpResponse(template.render(context, request))
+@api_view(['GET','POST'])
+def getProbDetail(request, pk):
+    if request.method == 'GET':
+        return getProblemDetail(request, pk)
+    if request.method == 'POST':
+        return ProblemSubmit(request,pk)         
